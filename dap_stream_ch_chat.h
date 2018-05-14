@@ -1,0 +1,40 @@
+#include <stdlib.h>
+
+
+#include "dap_common.h"
+#include "string.h"
+
+#define CHAT_PACKET_OP_CODE_GET_ALL_CONTACTS 0x1
+#define CHAT_PACKET_OP_CODE_ADD_CONTACT 0x2
+#define CHAT_PACKET_OP_CODE_DELETE_CONTACT 0x3
+#define CHAT_PACKET_OP_CODE_GET_USER_INFORMATION 0x4
+#define CHAT_PACKET_OP_CODE_GET_USER_INFORMATION_FAIL 0x5
+#define CHAT_PACKET_OP_CODE_GET_LAST_N_MESSAGE_IN_CHANNEL 0x6
+#define CHAT_PACKET_OP_CODE_GET_LAST_N_MESSAGE_IN_CHANNEL_FAIL 0x7
+#define CHAT_PACKET_OP_CODE_SEND_MESSAGE 0x8
+#define CHAT_PACKET_OP_CODE_SEND_MESSAGE_DELIVERED 0x9
+#define CHAT_PACKET_OP_CODE_SEND_MESSAGE_NOT_DELIVERED 0xa
+#define CHAT_PACKET_OP_CODE_GET_CONCACTS_DOMAIN 0xb
+#define CHAT_PACKET_OP_CODE_GET_CONCACTS_DOMAIN_FAIL 0xc
+#define CHAT_PACKET_OP_CODE_GET_LIST_CHANNEL 0xd
+#define CHAT_PACKET_OP_CODE_GET_SUBSCRIBE_ON_CHANNEL 0xe
+#define CHAT_PACKET_OP_CODE_SUBSCRIBE_ON_CHANNEL_OK 0xf
+#define CHAT_PACKET_OP_CODE_ERROR_SUBSCRIBE_ON_CHANNEL 0x10
+#define CHAT_PACKET_OP_CODE_GET_CHANNEL_MEMBERS 0x11
+#define CHAT_PACKET_OP_CODE_GET_CHANNEL_MEMBERS_ERROR 0x12
+
+typedef struct DapChannelChatPkt
+{
+    struct
+    {
+        uint8_t op_code;
+    } header;
+    uint8_t data[];
+} DapChannelChatPkt_t;
+
+extern int ch_chat_init();
+extern void ch_chat_deinit();
+
+
+
+extern void parse_contact_and_domain(char* input_str, char** out_login, char** out_domain);
