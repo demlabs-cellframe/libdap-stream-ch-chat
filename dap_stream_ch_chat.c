@@ -206,7 +206,7 @@ static void ch_chat_get_channel_members(stream_ch_t * ch)
 
     strcat(ch_pkt_out->data, "</channel_subscribers>\n");
 
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
 
     free(channel_id); free(subscribers_id); free(ch_pkt_out);
 }
@@ -253,7 +253,7 @@ static void ch_chat_get_list_channels(stream_ch_t * ch)
     ch_pkt_out->header.op_code = CHAT_PACKET_OP_CODE_GET_LIST_CHANNEL;
 
     strcpy(ch_pkt_out->data, xml_out);
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
 
     free(xml_out);
     free(ch_pkt_out);
@@ -282,7 +282,7 @@ static void ch_chat_get_contacts_domain(stream_ch_t * ch)
 
     strcpy(ch_pkt_out->data, contacts);
 
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
 
     free(contacts);
     free(ch_pkt_out);
@@ -327,7 +327,7 @@ static void ch_chat_return_N_channel_msgs(stream_ch_t * ch, char* data)
 
     ch_pkt_out->header.op_code = CHAT_PACKET_OP_CODE_GET_LAST_N_MESSAGE_IN_CHANNEL;
     strcpy(ch_pkt_out->data,xml_out);
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
 
     free(ch_pkt_out);
     free(xml_out);
@@ -339,7 +339,7 @@ static void send_empty_pkt(stream_ch_t * ch, int op_code)
 {
     DapChannelChatPkt_t * ch_pkt_out = (DapChannelChatPkt_t *) calloc (1,sizeof(ch_pkt_out->header) + 30);
     ch_pkt_out->header.op_code = op_code;
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
     free(ch_pkt_out);
 }
 
@@ -361,7 +361,7 @@ static void ch_chat_get_user_information(stream_ch_t * ch, char* data)
         ch_pkt_out->header.op_code = CHAT_PACKET_OP_CODE_GET_USER_INFORMATION;
     }
 
-    stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
 
     free(ch_pkt_out); free(xml_out);
 }
@@ -391,7 +391,7 @@ static void ch_chat_change_contact_list(stream_ch_t * ch, char* data, int op_cod
         else
             strcpy((char*)ch_pkt_out->data, "Contact not added");
 
-        stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+        dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
         break;
     }
     case CHAT_PACKET_OP_CODE_DELETE_CONTACT:
@@ -401,7 +401,7 @@ static void ch_chat_change_contact_list(stream_ch_t * ch, char* data, int op_cod
         else
             strcpy((char*)ch_pkt_out->data, "Error removed");
 
-        stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
+        dap_stream_ch_pkt_write_f(ch,'t',(const char*)ch_pkt_out, NULL);
         break;
     default:
         log_it(WARNING,"Unknown op_code");
@@ -428,7 +428,7 @@ static void ch_chat_get_all_user_contacts(stream_ch_t * ch)
                                   "<user_contacts>\n</user_contacts>");
         ch_pkt_out->header.op_code = CHAT_PACKET_OP_CODE_GET_ALL_CONTACTS;
 
-        stream_ch_pkt_write_f(ch,'t',(const char*) ch_pkt_out, NULL);
+        dap_stream_ch_pkt_write_f(ch,'t',(const char*) ch_pkt_out, NULL);
         free(login);
         free(domain);
         free(ch_pkt_out);
@@ -460,7 +460,7 @@ static void ch_chat_get_all_user_contacts(stream_ch_t * ch)
     }
 
     strcat(ch_pkt_out->data, "</user_contacts>");
-    stream_ch_pkt_write_f(ch,'t', (const char*) ch_pkt_out, NULL);
+    dap_stream_ch_pkt_write_f(ch,'t', (const char*) ch_pkt_out, NULL);
 
     free(login);
     free(domain);
